@@ -17,8 +17,13 @@ RUN wget https://launcher.mojang.com/v1/objects/bb2b6b1aefcd70dfd1892149ac3a215f
 
 # install dos2unix
 RUN apt-get install -y dos2unix
+
+# so the server just starts
 COPY eula.txt /server/eula.txt
 RUN dos2unix /server/eula.txt
 
+# script to start the server
+COPY run_server.sh /server/run_server.sh
+RUN dos2unix /server/run_server.sh
+
 WORKDIR /server
-CMD java -Xmx1024M -Xms512M -jar server.jar nogui
